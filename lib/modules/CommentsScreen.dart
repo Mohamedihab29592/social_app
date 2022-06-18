@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../layout/socialapp/cubit/cubit.dart';
-import '../../layout/socialapp/cubit/state.dart';
-import '../../models/social_model/comment_model.dart';
-import '../../models/social_model/post_model.dart';
-import '../../models/social_model/social_user_model.dart';
-import '../../shared/components/components.dart';
-import '../../shared/components/constants.dart';
-import '../../shared/styles/iconbroken.dart';
+import '../layout/socialapp/cubit/cubit.dart';
+import '../layout/socialapp/cubit/state.dart';
+import '../models/social_model/comment_model.dart';
+import '../models/social_model/post_model.dart';
+import '../models/social_model/social_user_model.dart';
+import '../shared/components/components.dart';
+import '../shared/components/constants.dart';
+import '../shared/styles/iconbroken.dart';
 
 class CommentsScreen extends StatelessWidget {
   var commentTextControl = TextEditingController();

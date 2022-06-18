@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 
-import '../../modules/social_app/social_login/social_login_screen.dart';
 import '../network/local/cache_helper.dart';
 import 'components.dart';
 import 'fullscreen.dart';

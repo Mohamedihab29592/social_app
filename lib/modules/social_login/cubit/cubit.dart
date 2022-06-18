@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:socialapp/models/social_model/social_user_model.dart';
-import 'package:socialapp/modules/social_app/social_login/cubit/states.dart';
+import 'package:socialapp/modules/social_login/cubit/states.dart';
 import 'package:socialapp/shared/components/components.dart';
 
 import '../../../../layout/socialapp/sociallayout.dart';

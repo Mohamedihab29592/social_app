@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:socialapp/modules/social_app/social_login/cubit/cubit.dart';
 
 import '../../../layout/socialapp/cubit/cubit.dart';
 import '../../../layout/socialapp/cubit/state.dart';
 import '../../../shared/components/components.dart';
 import '../../../shared/styles/changeThemeButton/changeThemeButton.dart';
 import '../../../shared/styles/iconbroken.dart';
-import '../../edit_profile/edit_ProfileScreen.dart';
+import '../edit_profile/edit_ProfileScreen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);

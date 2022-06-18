@@ -9,8 +9,8 @@ import '../../../models/social_model/post_model.dart';
 import '../../../models/social_model/social_user_model.dart';
 import '../../../shared/components/components.dart';
 import '../../../shared/styles/iconbroken.dart';
-import '../../new_post/new_post.dart';
 import '../CommentsScreen.dart';
+import '../new_post/new_post.dart';
 import '../settings/Profile_screen.dart';
 
 class Feeds extends StatelessWidget {

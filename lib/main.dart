@@ -15,7 +15,7 @@ import 'package:socialapp/shared/cubit/states.dart';
 import 'package:socialapp/shared/styles/themes.dart';
 import 'layout/socialapp/cubit/cubit.dart';
 import 'layout/socialapp/sociallayout.dart';
-import 'modules/social_app/social_login/social_login_screen.dart';
+import 'modules/social_login/social_login_screen.dart';
 import 'modules/splashScreen/splashScreen.dart';
 import 'shared/bloc_observer.dart';
 import 'shared/components/constants.dart';

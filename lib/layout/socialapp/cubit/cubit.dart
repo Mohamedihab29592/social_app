@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:socialapp/layout/socialapp/cubit/state.dart';
-import 'package:socialapp/modules/social_app/social_login/social_login_screen.dart';
 
 import '../../../models/social_model/LikeModel.dart';
 import '../../../models/social_model/comment_model.dart';
@@ -16,11 +15,13 @@ import '../../../models/social_model/notificationModel.dart';
 import '../../../models/social_model/post_model.dart';
 import '../../../models/social_model/recentMessagesModel.dart';
 import '../../../models/social_model/social_user_model.dart';
+import '../../../modules/chats/chats.dart';
+import '../../../modules/feeds/feeds.dart';
 import '../../../modules/new_post/new_post.dart';
-import '../../../modules/social_app/chats/chats.dart';
-import '../../../modules/social_app/feeds/feeds.dart';
-import '../../../modules/social_app/settings/Profile_screen.dart';
-import '../../../modules/social_app/users/users.dart';
+
+import '../../../modules/settings/Profile_screen.dart';
+import '../../../modules/social_login/social_login_screen.dart';
+import '../../../modules/users/users.dart';
 import '../../../shared/components/components.dart';
 import '../../../shared/components/constants.dart';
 import '../../../shared/network/local/cache_helper.dart';

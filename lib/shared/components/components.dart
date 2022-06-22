@@ -9,38 +9,24 @@ import '../styles/iconbroken.dart';
 
 
 Widget defaultButton({
-  double width = double.infinity,
-  Color background = Colors.blue,
-  TextStyle? style,
-   String ? label,
-  TextStyle? labelStyle,
+  required VoidCallback onTap,
   required String text,
-  bool isUpperCase = true,
-  double radius = 3,
-  required Function function,
-
+  double? width = 400,
 }) =>
     Container(
-      height: 40,
+      height: 50,
       width: width,
       child: MaterialButton(
-        // ignore: unnecessary_statements
-        onPressed: () {
-          function();
-        },
+        color: Colors.blueAccent,
+        shape: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+        onPressed: onTap,
         child: Text(
-          isUpperCase ? text.toUpperCase() : text ,
-          style: TextStyle(color: Colors.white),
-
+          '$text',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 17,
+          ),
         ),
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(
-          radius,
-
-        ),
-        color: background,
-
       ),
     );
 

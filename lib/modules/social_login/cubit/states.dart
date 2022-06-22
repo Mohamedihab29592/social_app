@@ -33,7 +33,27 @@ class LoginGoogleUserSuccessState extends SocialLoginStates{
 class LoginGoogleUserErrorState extends SocialLoginStates{}
 ///End of LoginUser State
 
+///reset pass
+
+class ResetPasswordLoadingState extends SocialLoginStates{}
+class ResetPasswordSuccessState extends SocialLoginStates{}
+class ResetPasswordErrorState extends SocialLoginStates{}
 
 
+///facebook state
+class CreateFacebookUserLoadingState extends SocialLoginStates{}
+class CreateFacebookUserSuccessState extends SocialLoginStates{
+final  String uId;
+CreateFacebookUserSuccessState(this.uId);
+}
+class CreateFacebookUserErrorState extends SocialLoginStates{}
 
+///LoginFacebookleUSer State
+class LoginFacebookUserLoadingState extends SocialLoginStates{}
+class LoginFacebookUserSuccessState extends SocialLoginStates{
+  final  String uId;
+  LoginFacebookUserSuccessState(this.uId);
+}
+class LoginFacebookUserErrorState extends SocialLoginStates{}
+///End of LoginUser State
 

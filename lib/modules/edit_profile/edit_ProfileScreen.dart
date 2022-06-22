@@ -109,7 +109,7 @@ class EditProfileScreen extends StatelessWidget {
                       Expanded(
                           child: Column(
                             children: [
-                              defaultButton(text: 'Upload profile  ', function: (){
+                              defaultButton(text: 'Upload profile  ', onTap: (){
                                 SocialCubit.get(context).uploadProfileImage(name: nameController.text, phone: phoneController.text, bio: bioController.text);
                               },
                               ),
@@ -128,7 +128,7 @@ class EditProfileScreen extends StatelessWidget {
                         Expanded(
                           child: Column(
                             children: [
-                              defaultButton(text: 'Upload Cover  ', function: (){
+                              defaultButton(text: 'Upload Cover  ', onTap: (){
                                 SocialCubit.get(context).uploadCoverImage(name: nameController.text, phone: phoneController.text, bio: bioController.text);
                               },
                               ),

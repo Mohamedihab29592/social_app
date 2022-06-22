@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 
 import '../../../layout/socialapp/cubit/cubit.dart';
@@ -12,6 +13,7 @@ import '../../../shared/styles/color.dart';
 import '../social_register/social_register_screen.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
+import 'forget_your_pass.dart';
 
 class SocialLoginScreen extends StatelessWidget {
   const SocialLoginScreen({Key? key}) : super(key: key);
@@ -47,6 +49,76 @@ class SocialLoginScreen extends StatelessWidget {
 
               });
             }
+          else if (state is CreateGoogleUserSuccessState)
+            {
+              CacheHelper.saveData(
+                key: 'uId',
+                value:state.uId,
+              ).then((value) async {
+                SocialCubit.get(context).getUserData(uId);
+                showToast(
+                  text: 'Welcome in Social App',
+                  state: ToastStates.SUCCESS,
+                );
+                navigateAndFinish(context, SocialLayout(0));
+                SocialCubit
+                    .get(context)
+                    .currentIndex = 0;
+              });
+            }
+          else if (state is LoginGoogleUserSuccessState)
+            {
+              CacheHelper.saveData(
+                key: 'uId',
+                value:state.uId,
+              ).then((value) async {
+                SocialCubit.get(context).getUserData(uId);
+                showToast(
+                  text: 'Welcome in Social App',
+                  state: ToastStates.SUCCESS,
+                );
+                navigateAndFinish(context, SocialLayout(0));
+                SocialCubit
+                    .get(context)
+                    .currentIndex = 0;
+              });
+
+            }
+          else if (state is CreateFacebookUserSuccessState)
+          {
+            CacheHelper.saveData(
+              key: 'uId',
+              value:state.uId,
+            ).then((value) async {
+              SocialCubit.get(context).getUserData(uId);
+              showToast(
+                text: 'Welcome in Social App',
+                state: ToastStates.SUCCESS,
+              );
+              navigateAndFinish(context, SocialLayout(0));
+              SocialCubit
+                  .get(context)
+                  .currentIndex = 0;
+            });
+          }
+          else if (state is LoginFacebookUserSuccessState)
+          {
+            CacheHelper.saveData(
+              key: 'uId',
+              value:state.uId,
+            ).then((value) async {
+              SocialCubit.get(context).getUserData(uId);
+              showToast(
+                text: 'Welcome in Social App',
+                state: ToastStates.SUCCESS,
+              );
+              navigateAndFinish(context, SocialLayout(0));
+              SocialCubit
+                  .get(context)
+                  .currentIndex = 0;
+            });
+
+          }
 
         },
         builder: (context, state) {
@@ -140,8 +212,15 @@ class SocialLoginScreen extends StatelessWidget {
                             borderSide: BorderSide(width: 2.0),
                           ),
                         ),
-                        SizedBox(
-                          height: 15,
+
+                        Container(
+                          width: double.infinity,
+                          alignment: AlignmentDirectional.centerEnd,
+                          child: TextButton(child: Text("forget your password",style: TextStyle(color:Colors.grey),),
+                            onPressed: () {
+                              navigateTo(context, ForgotPasswordScreen());
+                            }
+                          ),
                         ),
                         Center(
                           child: ConditionalBuilder(
@@ -163,7 +242,8 @@ class SocialLoginScreen extends StatelessWidget {
                         if(state is SocialLoginLoadingState)
                           LinearProgressIndicator(color: Colors.blue,),
 
-                        SizedBox(height: 20,),
+
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -191,11 +271,15 @@ class SocialLoginScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             InkWell(
-                              onTap: (){
-                              //  SocialCubit.get(context).changeMode();
+                              onTap: ()  {
+
+                              SocialLoginCubit.get(context).signInWithFacebook();
                               },
+
                               child: CircleAvatar(
-                                child:Image(image:AssetImage('assests/images/facebook_logo.png',),width: 40,height: 40,),
+                                child: state is LoginFacebookUserLoadingState?
+                                CircularProgressIndicator() :
+                                Image(image:AssetImage('assests/images/facebook_logo.png',),width: 40,height: 40,),
                                 backgroundColor: Colors.white.withOpacity(0),
                               ),
                             ),

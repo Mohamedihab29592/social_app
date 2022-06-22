@@ -6,18 +6,21 @@ class SocialUserModel
    String  ?email;
    String ? phone;
    String ? uId;
+  String? token;
   String ? image;
   String ? cover;
   String ? bio;
   FieldValue? dateTime;
 
   SocialUserModel({
-     this.name,  this.email , this.phone , this.uId, this.image , this.cover , this.bio ,  this.dateTime,
+     this.name,  this.token, this.email , this.phone , this.uId, this.image , this.cover , this.bio ,  this.dateTime,
 });
   SocialUserModel.fromJson(Map<String,dynamic>?json)
   {
     name = json!['name'];
     email = json['email'];
+    token = json['token'];
+
     phone = json['phone'];
 
     uId = json['uId'];
@@ -32,7 +35,7 @@ class SocialUserModel
       'name':name,
       'email':email,
       'phone':phone,
-
+      'token': token,
       'uId':uId,
       'image':image,
       'cover':cover,

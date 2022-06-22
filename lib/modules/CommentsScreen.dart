@@ -206,6 +206,7 @@ class CommentsScreen extends StatelessWidget {
                                                   time: TimeOfDay.now().format(context),
                                                 );
                                               }
+
                                               commentTextControl.clear();
                                             SocialCubit.get(context).popCommentImage();
 

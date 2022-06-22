@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -23,8 +25,10 @@ import '../../../modules/social_login/social_login_screen.dart';
 import '../../../modules/users/users.dart';
 import '../../../shared/components/components.dart';
 import '../../../shared/components/constants.dart';
+import '../../../shared/local_keys.g.dart';
 import '../../../shared/network/local/cache_helper.dart';
 import '../../../shared/network/remote/dio_helper.dart';
+import '../../../shared/styles/iconbroken.dart';
 
 class SocialCubit extends Cubit<SocialStates> {
   SocialCubit() : super(SocialInitialState());
@@ -367,6 +371,7 @@ class SocialCubit extends Cubit<SocialStates> {
         .set(likesModel.toMap())
         .then((value) {
       getPosts();
+
       emit(SocialLikePostsSuccessState());
     }).catchError((error) {
       emit(SocialLikePostsErrorState(error.toString()));
@@ -633,152 +638,6 @@ class SocialCubit extends Cubit<SocialStates> {
 
 
 
-
-
-  Future setNotificationId() async {
-    await FirebaseFirestore.instance.collection('users').get()
-        .then((value) {
-      value.docs.forEach((element) async {
-        var notifications = await element.reference.collection(
-            'notifications').get();
-        notifications.docs.forEach((notificationsElement) async {
-          await notificationsElement.reference.update({
-            'notificationId': notificationsElement.id
-          });
-        });
-      });
-      emit(SetNotificationIdSuccessState());
-    });
-  }
-  void sendFCMNotification({
-    required String? token,
-    required String? senderName,
-    String? messageText,
-    String? messageImage,
-  }) {
-    DioHelper.postData(
-        data: {
-          "to": "$token",
-          "notification": {
-            "title": "$senderName",
-            "body":
-            messageText ?? (messageImage != null
-                ? 'Photo'
-                : 'ERROR 404'),
-            "sound": "default"
-          },
-          "android": {
-            "Priority": "HIGH",
-          },
-          "data": {
-            "type": "order",
-            "id": "87",
-            "click_action": "FLUTTER_NOTIFICATION_CLICK"
-          }
-        });
-    emit(SendMessageSuccessState());
-  }
-
-  void sendInAppNotification({
-    String? contentKey,
-    String? contentId,
-    String? content,
-    String? receiverName,
-    String? receiverId,
-  }) {
-    emit(SendInAppNotificationLoadingState());
-    NotificationModel notificationModel = NotificationModel(
-      contentKey: contentKey,
-      contentId: contentId,
-      content: content,
-      senderName: socialUserModel!.name,
-      receiverName: receiverName,
-      senderId: socialUserModel!.uId,
-      receiverId: receiverId,
-      senderProfilePicture: socialUserModel!.image,
-      read: false,
-      dateTime: Timestamp.now(),
-      serverTimeStamp: FieldValue.serverTimestamp(),
-    );
-
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(receiverId)
-        .collection('notifications')
-        .add(notificationModel.toMap()).then((value) async {
-      await setNotificationId();
-      emit(SendInAppNotificationLoadingState());
-    }).catchError((error) {
-      emit(SendInAppNotificationLoadingState());
-    });
-  }
-
-
-
-
-
-  void setRecentMessage({
-    required String? receiverName,
-    required String? receiverId,
-    String? recentMessageText,
-    String? recentMessageImage,
-    required String? receiverProfilePic,
-    required String? time,
-  }) {
-    RecentMessagesModel recentMessagesModel = RecentMessagesModel(
-        senderId: socialUserModel!.uId,
-        senderName: socialUserModel!.name,
-        senderProfilePic: socialUserModel!.image,
-        receiverId: receiverId,
-        receiverName: receiverName,
-        receiverProfilePic: receiverProfilePic,
-        recentMessageText: recentMessageText,
-        recentMessageImage: recentMessageImage,
-        read: false,
-        time: time,
-        dateTime: FieldValue.serverTimestamp());
-    RecentMessagesModel myRecentMessagesModel = RecentMessagesModel(
-        senderId: socialUserModel!.uId,
-        senderName: socialUserModel!.name,
-        senderProfilePic: socialUserModel!.image,
-        receiverId: receiverId,
-        receiverName: receiverName,
-        receiverProfilePic: receiverProfilePic,
-        recentMessageText: recentMessageText,
-        recentMessageImage: recentMessageImage,
-        read: true,
-        time: time,
-        dateTime: FieldValue.serverTimestamp());
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(socialUserModel!.uId)
-        .collection('recentMsg')
-        .doc(receiverId)
-        .set(myRecentMessagesModel.toMap())
-        .then((value) {
-      emit(SetRecentMessageSuccessState());
-    }).catchError((error) {
-      print(error.toString());
-      emit(SetRecentMessageErrorState());
-    });
-
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(receiverId)
-        .collection('recentMsg')
-        .doc(socialUserModel!.uId)
-        .set(recentMessagesModel.toMap())
-        .then((value) {
-      emit(SetRecentMessageSuccessState());
-    }).catchError((error) {
-      print(error.toString());
-      emit(SetRecentMessageErrorState());
-    });
-  }
-
- /* void signOut() {
-    FirebaseAuth.instance.signOut();
-  }*/
 
 
 

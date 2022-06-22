@@ -186,6 +186,7 @@ class SocialLoginCubit extends Cubit<SocialLoginStates> {
 
   void signInWithFacebook() async {
     emit(LoginFacebookUserLoadingState());
+
     final result = await FacebookAuth.i.login(
         permissions: ["public_profile", "email"]
     );

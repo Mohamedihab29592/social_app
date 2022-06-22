@@ -37,7 +37,9 @@ class SocialLayout extends StatelessWidget {
            appBar: AppBar(
              title:   Text(cubit.titles[initialIndex],),
              actions: [
-               IconButton(onPressed: (){}, icon: Icon(IconBroken.Notification,),
+               IconButton(onPressed: (){
+
+               }, icon: Icon(IconBroken.Notification,),
                ),
          IconButton(onPressed: (){}, icon: Icon(IconBroken.Search,),
          ),],

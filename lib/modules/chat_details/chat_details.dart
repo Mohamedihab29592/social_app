@@ -13,6 +13,8 @@ import '../../../shared/styles/iconbroken.dart';
 
 class ChatDetailsScreen extends StatelessWidget {
   SocialUserModel? userModel;
+  var messageTextControl = TextEditingController();
+
 
   ChatDetailsScreen({Key? key, this.userModel}) : super(key: key);
   var messageController = TextEditingController();
@@ -27,6 +29,8 @@ class ChatDetailsScreen extends StatelessWidget {
           listener: (context, state) {},
           builder: (context, state) {
             dynamic messageImage = SocialCubit.get(context).messageImage;
+            SocialUserModel? user = SocialCubit.get(context).socialUserModel;
+
             return Scaffold(
               appBar: AppBar(
                 titleSpacing: 0.0,
@@ -172,6 +176,7 @@ class ChatDetailsScreen extends StatelessWidget {
                                       time: TimeOfDay.now().format(context),
                                     );
                                   }
+
                                   messageController.clear();
                                   SocialCubit.get(context).popMessageImage();
                                 },

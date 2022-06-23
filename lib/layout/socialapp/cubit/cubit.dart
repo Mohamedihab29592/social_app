@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +12,7 @@ import 'package:socialapp/layout/socialapp/cubit/state.dart';
 import '../../../models/social_model/LikeModel.dart';
 import '../../../models/social_model/comment_model.dart';
 import '../../../models/social_model/message_model.dart';
-import '../../../models/social_model/notificationModel.dart';
 import '../../../models/social_model/post_model.dart';
-import '../../../models/social_model/recentMessagesModel.dart';
 import '../../../models/social_model/social_user_model.dart';
 import '../../../modules/chats/chats.dart';
 import '../../../modules/feeds/feeds.dart';
@@ -25,10 +23,8 @@ import '../../../modules/social_login/social_login_screen.dart';
 import '../../../modules/users/users.dart';
 import '../../../shared/components/components.dart';
 import '../../../shared/components/constants.dart';
-import '../../../shared/local_keys.g.dart';
 import '../../../shared/network/local/cache_helper.dart';
-import '../../../shared/network/remote/dio_helper.dart';
-import '../../../shared/styles/iconbroken.dart';
+
 
 class SocialCubit extends Cubit<SocialStates> {
   SocialCubit() : super(SocialInitialState());
@@ -377,19 +373,7 @@ class SocialCubit extends Cubit<SocialStates> {
       emit(SocialLikePostsErrorState(error.toString()));
     });
   }
-  void getSinglePost(String? postId){
-    emit(GetPostLoadingState());
-    FirebaseFirestore.instance
-        .collection('posts')
-        .doc(postId)
-        .get()
-        .then((value) {
-      singlePost = PostModel.fromJson(value.data());
-      emit(GetSinglePostSuccessState());
-    }).catchError((error){
-      emit(GetPostErrorState());
-    });
-  }
+
 
 
 
@@ -651,4 +635,25 @@ class SocialCubit extends Cubit<SocialStates> {
       }
     });
   }
+
+  void setUserToken() async{
+    String? token = await FirebaseMessaging.instance.getToken();
+    await FirebaseFirestore.instance.collection('users').doc(socialUserModel!.uId)
+        .update({'token': token})
+        .then((value) => {});
+  }
+
+  Future getMyData() async {
+
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uId!)
+        .snapshots()
+        .listen((value) async {
+      socialUserModel = SocialUserModel.fromJson(value.data());
+      setUserToken();
+
+    });
+  }
+
 }

@@ -4,6 +4,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:gradients/gradients.dart';
 
+import '../../layout/socialapp/cubit/cubit.dart';
 import '../styles/iconbroken.dart';
 
 
@@ -205,7 +206,48 @@ Color toastColor(ToastStates state) {
   }
 }
 
+Widget baseAlertDialog({
+  required context,
+  String? title,
+  String? content,
+  String? outlinedButtonText,
+  String? elevatedButtonText,
+  IconData? elevatedButtonIcon,
+}){
+  return AlertDialog(
+    title: Text('$title',),
+    titlePadding: EdgeInsetsDirectional.only(start:13,top: 15 ),
+    content: Text('$content',),
+    elevation: 8,
+    contentPadding: EdgeInsets.all(15),
+    actions: [
+      OutlinedButton(
+          onPressed: (){
+            Navigator.of(context).pop(false);
+          },
+          child: Text('$outlinedButtonText')
+      ),
+      SizedBox(
+        width: 100,
+        child: ElevatedButton(
+          style:ButtonStyle(backgroundColor:MaterialStateProperty.all(Colors.blueAccent)) ,
+          onPressed: (){
+            Navigator.of(context).pop(true);
+          },
+          child:Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(elevatedButtonIcon),
+              SizedBox(width: 5,),
+              Text('$elevatedButtonText',style: TextStyle(color: Colors.white)),
+            ],
+          ),
+        ),
+      ),
+    ],
 
+  );
+}
 
 Widget buildIconWithNumber({
   required bool condition,
